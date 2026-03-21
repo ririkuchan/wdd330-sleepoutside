@@ -119,8 +119,10 @@ button {
 /* Cart icon styles */
 .cart {
   padding-top: 1em;
-  position: relative;
+  position: relative; /* 数字を表示する基準点にするために必須 */
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .cart svg {
@@ -131,6 +133,21 @@ button {
   fill: gray;
 }
 
+/* カートの数字（バッジ）のスタイル */
+.cart-count {
+  position: absolute;
+  top: 5px; /* アイコンの右上に配置 */
+  right: -8px;
+  background-color: var(--tertiary-color); /* プロジェクトの色と合わせる */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  line-height: 1;
+  min-width: 18px;
+  text-align: center;
+}
 /* End cart icon styles */
 
 .mission {
