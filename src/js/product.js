@@ -1,30 +1,24 @@
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
+import ProductDetails from "./ProductDetails.mjs";
 import ProductData from "./ProductData.mjs";
 
+/**
+ * 1. 共通パーツ（ヘッダー・フッター）を読み込む
+ * これを最初に実行することで、HTML内のプレースホルダーに
+ * partials/header.html と footer.html が挿入されます。
+ */
+loadHeaderFooter();
+
+/**
+ * 2. 商品データの準備
+ * URLパラメータから商品IDを取得し、データソースを初期化します。
+ */
 const dataSource = new ProductData("tents");
+const productId = getParam("product");
 
-function addProductToCart(product) {
-  // 1. 現在のカートの中身をlocalStorageから取得する
-  // もし中身が空（null）なら、新しい空の配列 [] を作成する
-  const cartItems = getLocalStorage("so-cart") || [];
-
-  // 2. 取得した配列に、新しく選んだ商品（product）を追加する
-  cartItems.push(product);
-
-  // 3. 商品が追加された新しい配列を、再びlocalStorageに保存する
-  setLocalStorage("so-cart", cartItems);
-}
-
-// カートボタンが押された時のイベントハンドラー
-async function addToCartHandler(e) {
-  // ボタンのデータ属性 (data-id) から商品IDを取得し、データを取ってくる
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  
-  // 取得した商品をカートに追加する関数を呼ぶ
-  addProductToCart(product);
-}
-
-// 「Add to Cart」ボタンにクリックイベントリスナーを登録
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+/**
+ * 3. 商品詳細クラスの初期化
+ * 商品情報を取得してHTMLを描画します。
+ */
+const product = new ProductDetails(productId, dataSource);
+product.init();
