@@ -1,4 +1,4 @@
 import { loadHeaderFooter } from "./utils.mjs";
 
-// ヘッダーとフッターを読み込む
+// トップページも共通ヘッダー・フッターを読み込むだけでOK
 loadHeaderFooter();

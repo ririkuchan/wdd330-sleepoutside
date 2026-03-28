@@ -40,6 +40,7 @@ p {
   padding: 0.75rem;
 }
 
+/* Logo Styles */
 .logo {
   line-height: 60px;
   width: 245px;
@@ -57,7 +58,7 @@ p {
 
 .logo a {
   text-decoration: none;
-  color: var(--font-body);
+  color: var(--dark-grey); /* 修正: 文字色を適用 */
 }
 
 .hero {
@@ -75,9 +76,7 @@ p {
   font-size: var(--small-font);
   width: 110px;
   height: 80px;
-
   flex-direction: column;
-  align-items: flex-end;
   box-shadow: 1px 1px 4px var(--light-grey);
   justify-content: center;
   align-items: center;
@@ -94,7 +93,7 @@ p {
   margin-top: -1.7em;
 }
 
-/* utility classes */
+/* Utility classes */
 .highlight {
   color: var(--tertiary-color);
 }
@@ -114,12 +113,10 @@ button {
   border-bottom: 2px solid var(--primary-color);
 }
 
-/* End utility classes */
-
 /* Cart icon styles */
 .cart {
   padding-top: 1em;
-  position: relative; /* 数字を表示する基準点にするために必須 */
+  position: relative;
   text-align: center;
   display: flex;
   align-items: center;
@@ -133,12 +130,11 @@ button {
   fill: gray;
 }
 
-/* カートの数字（バッジ）のスタイル */
 .cart-count {
   position: absolute;
-  top: 5px; /* アイコンの右上に配置 */
+  top: 5px;
   right: -8px;
-  background-color: var(--tertiary-color); /* プロジェクトの色と合わせる */
+  background-color: var(--tertiary-color);
   color: white;
   border-radius: 50%;
   padding: 2px 6px;
@@ -148,8 +144,8 @@ button {
   min-width: 18px;
   text-align: center;
 }
-/* End cart icon styles */
 
+/* Home Page Specific Styles */
 .mission {
   position: absolute;
   top: 1rem;
@@ -168,6 +164,41 @@ button {
   text-align: center;
 }
 
+/* Category Cards (Home Page Icons) */
+.category-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 中央寄せに変更 */
+  gap: 20px;
+  list-style-type: none;
+  padding: 2rem 0;
+}
+
+.category-card {
+  text-align: center;
+  text-decoration: none;
+  color: var(--dark-grey);
+  width: 150px;
+  transition: transform 0.2s;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.category-card p {
+  padding: 0; /* 余計なパディングを削除 */
+  font-weight: bold;
+}
+
+/* Product Listing Styles */
 .products {
   margin-top: 2rem;
   padding: 1rem;
@@ -185,7 +216,6 @@ button {
   color: var(--dark-grey);
 }
 
-/* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
   margin: 0.25em;
@@ -208,25 +238,14 @@ button {
   font-size: 1em;
 }
 
-/* End product list card */
-
-.product-detail {
-  padding: 1em;
-  max-width: 500px;
-  margin: auto;
-}
-
-.product-detail img {
-  width: 100%;
-}
-
-/* Start cart list card styles */
+/* Cart Page Styles */
 .cart-card {
   display: grid;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
-  /* max-height: 120px; */
   align-items: center;
+  border-bottom: 1px solid var(--light-grey); /* 境界線を追加 */
+  padding: 1rem 0;
 }
 
 .cart-card__image {
@@ -235,29 +254,10 @@ button {
 }
 
 .cart-card p {
-  margin-top: 0;
+  margin: 0;
 }
 
-.cart-card .card__name {
-  grid-row: 1;
-  grid-column: 2;
-}
-
-.cart-card__color {
-  grid-row: 2;
-  grid-column: 2;
-}
-
-.cart-card__quantity {
-  grid-row: 1;
-  grid-column: 3;
-}
-
-.cart-card__price {
-  grid-row: 2;
-  grid-column: 3;
-}
-
+/* Media Queries */
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -277,4 +277,5 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+  text-align: center;
 }
