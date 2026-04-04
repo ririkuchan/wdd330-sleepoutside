@@ -49,9 +49,14 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 }
 
 export async function convertToJson(response) {
+  const jsonResponse = await response.json();
+
   if (response.ok) {
-    return await response.json();
-  } else {
-    throw new Error('Bad Response');
+    return jsonResponse;
   }
+
+  throw {
+    name: 'servicesError',
+    message: jsonResponse
+  };
 }

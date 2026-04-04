@@ -26,11 +26,18 @@ async function handleCheckoutSubmit(event) {
 
   try {
     const result = await checkout.checkout(form);
-    console.log('Checkout response:', result);
-    alert('Checkout submitted successfully!');
+    console.log('Success:', result);
+
+    checkout.clearCart();
+    window.location.href = `${import.meta.env.BASE_URL}checkout/success.html`;
   } catch (error) {
-    console.error(error);
-    alert('There was a problem submitting your order.');
+    console.log('Error:', error);
+
+    if (error.name === 'servicesError') {
+      alert(JSON.stringify(error.message));
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
   }
 }
 
