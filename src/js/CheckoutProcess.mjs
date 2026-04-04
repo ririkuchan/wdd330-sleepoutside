@@ -1,8 +1,20 @@
 import { getLocalStorage } from './utils-storage.mjs';
 
+function formDataToJSON(formElement) {
+  const formData = new FormData(formElement);
+  const convertedJSON = {};
+
+  formData.forEach((value, key) => {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
+
 export default class CheckoutProcess {
-  constructor(listKey) {
+  constructor(listKey, externalServices) {
     this.listKey = listKey;
+    this.externalServices = externalServices;
     this.cartItems = getLocalStorage(this.listKey) || [];
   }
 
@@ -41,5 +53,31 @@ export default class CheckoutProcess {
     document.querySelector('#tax').textContent = tax.toFixed(2);
     document.querySelector('#shipping').textContent = shipping.toFixed(2);
     document.querySelector('#orderTotal').textContent = orderTotal.toFixed(2);
+  }
+
+  packageItems(items) {
+    return items.map((item) => ({
+      id: item.Id,
+      name: item.Name,
+      price: item.FinalPrice,
+      quantity: 1
+    }));
+  }
+
+  async checkout(form) {
+    const orderData = formDataToJSON(form);
+
+    const subtotal = this.calculateSubtotal();
+    const tax = this.calculateTax(subtotal);
+    const shipping = this.calculateShipping(this.cartItems.length);
+    const orderTotal = this.calculateOrderTotal(subtotal, tax, shipping);
+
+    orderData.orderDate = new Date().toISOString();
+    orderData.items = this.packageItems(this.cartItems);
+    orderData.tax = tax.toFixed(2);
+    orderData.shipping = shipping;
+    orderData.orderTotal = orderTotal.toFixed(2);
+
+    return await this.externalServices.checkout(orderData);
   }
 }

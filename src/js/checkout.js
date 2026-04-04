@@ -1,21 +1,20 @@
 import { loadHeaderFooter } from './utils.mjs';
 import CheckoutProcess from './CheckoutProcess.mjs';
+import ExternalServices from './ExternalServices.mjs';
 
 loadHeaderFooter();
 
-const checkout = new CheckoutProcess('so-cart');
+const externalServices = new ExternalServices();
+const checkout = new CheckoutProcess('so-cart', externalServices);
 
-// ページ読み込み時にsubtotal表示
 checkout.displaySubtotal();
 
-// zip入力後に税・送料・合計を計算
 const zipInput = document.querySelector('#zip');
 zipInput.addEventListener('blur', () => {
   checkout.displayOrderTotals();
 });
 
-// submit処理
-function handleCheckoutSubmit(event) {
+async function handleCheckoutSubmit(event) {
   event.preventDefault();
 
   const form = document.querySelector('#checkout-form');
@@ -25,8 +24,14 @@ function handleCheckoutSubmit(event) {
     return;
   }
 
-  checkout.displayOrderTotals();
-  alert('Checkout submitted successfully!');
+  try {
+    const result = await checkout.checkout(form);
+    console.log('Checkout response:', result);
+    alert('Checkout submitted successfully!');
+  } catch (error) {
+    console.error(error);
+    alert('There was a problem submitting your order.');
+  }
 }
 
 document
