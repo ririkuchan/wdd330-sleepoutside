@@ -1,21 +1,21 @@
-import { resolve } from "path";
 import { defineConfig } from "vite";
+import { resolve } from "path";
 
 export default defineConfig({
-  root: "src/",
-
+  root: "src",
+  base: "/wdd330-sleepoutside/",
+  publicDir: "../public",
   build: {
-    outDir: "../dist",
+    outDir: "../docs",
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         main: resolve(__dirname, "src/index.html"),
+        productListing: resolve(__dirname, "src/product_listing/index.html"),
+        productPages: resolve(__dirname, "src/product_pages/index.html"),
         cart: resolve(__dirname, "src/cart/index.html"),
-        checkout: resolve(__dirname, "src/checkout/index.html"),
-        // 動的な商品詳細ページ
-        product: resolve(__dirname, "src/product_pages/index.html"),
-        // 新しく追加したカテゴリー別リストページ
-        product_listing: resolve(__dirname, "src/product_listing/index.html"),
-      },
-    },
-  },
+        checkout: resolve(__dirname, "src/checkout/index.html")
+      }
+    }
+  }
 });
