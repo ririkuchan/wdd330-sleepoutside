@@ -257,6 +257,52 @@ button {
   margin: 0;
 }
 
+.cart-summary {
+  margin-top: 1.5rem;
+}
+
+.checkout-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.checkout-page {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.checkout-form fieldset {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+}
+
+.checkout-form label {
+  display: block;
+  margin-top: 0.75rem;
+}
+
+.checkout-form input {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.order-summary {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+
 /* Media Queries */
 @media screen and (min-width: 500px) {
   body {
