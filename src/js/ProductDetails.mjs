@@ -9,9 +9,10 @@ function productDetailsTemplate(product) {
       src="${product.Images.PrimaryLarge}"
       alt="${product.Name}"
     />
-    <p class="product-card__price">$${product.FinalPrice}</p>
-    <p class="product__color">${product.Colors[0].ColorName}</p>
-    <p class="product__description">${product.DescriptionHtmlSimple}</p>
+    <p class="product-card__price">$${Number(product.FinalPrice).toFixed(2)}</p>
+    <p class="product__description">
+      ${product.DescriptionHtmlSimple || product.DescriptionHtml || ''}
+    </p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
     </div>
@@ -28,6 +29,7 @@ export default class ProductDetails {
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails();
+
     document
       .getElementById('addToCart')
       .addEventListener('click', this.addToCart.bind(this));
@@ -37,6 +39,7 @@ export default class ProductDetails {
     let cartItems = getLocalStorage('so-cart') || [];
     cartItems.push(this.product);
     setLocalStorage('so-cart', cartItems);
+    alert('Item added to cart!');
   }
 
   renderProductDetails() {
